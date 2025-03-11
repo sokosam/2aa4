@@ -1,8 +1,7 @@
-package ca.mcmaster.se2aa4.island.teamXXX;
+package ca.mcmaster.se2aa4.island.team029;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
 
 public class ExampleTest {
 
@@ -10,6 +9,5 @@ public class ExampleTest {
     public void sampleTest() {
         assertTrue(1 == 1);
     }
-
 
 }
