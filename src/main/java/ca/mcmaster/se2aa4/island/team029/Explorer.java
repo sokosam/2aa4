@@ -24,7 +24,7 @@ public class Explorer implements IExplorerRaid {
         // Parse JSON object to get variables to instantiate and initialize drone
         String direction = info.getString("heading");
         int batteryLevel = info.getInt("budget");
-        drone = new Drone(1, 1, batteryLevel, direction.charAt(0));
+        drone = new Drone(1, 1, batteryLevel, Direction.valueOf(direction));
         decisionMaker = new DecisionMaker(drone);
 
         logger.info("The drone is facing {}", direction);
