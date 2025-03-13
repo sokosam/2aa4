@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.island.team029.Actions;
+package ca.mcmaster.se2aa4.island.team029;
 
 import org.json.JSONObject;
 
@@ -20,15 +20,16 @@ public class Actions {
         return decision;
     }
 
-    public static JSONObject turnRight(char currentDir) {
+    public static JSONObject turnRight(Drone drone) {
         int currentIndex = -1;
         for (int i = 0; i < directions.length; i++) {
-            if (directions[i] == currentDir) {
+            if (directions[i] == drone.getDirection()) {
                 currentIndex = i;
                 break;
             }
         }
         int newIndex = (currentIndex + 1) % directions.length;
+        drone.setDirection(directions[newIndex]);
 
         return new JSONObject()
                 .put("action", "heading")
@@ -36,12 +37,13 @@ public class Actions {
 
     }
 
-    public static JSONObject turnLeft(char currentDir) {
-        int currentIndex = getDirectionIndex(currentDir);
+    public static JSONObject turnLeft(Drone drone) {
+        int currentIndex = getDirectionIndex(drone.getDirection());
         int newIndex = currentIndex - 1;
         if (newIndex < 0) {
             newIndex = directions.length - 1;
         }
+        drone.setDirection(directions[newIndex]);
 
         return new JSONObject()
                 .put("action", "heading")
