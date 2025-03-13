@@ -14,13 +14,13 @@ public class Actions {
         return -1;
     }
 
-    public static String flyForward() {
+    public static JSONObject flyForward() {
         JSONObject decision = new JSONObject();
         decision.put("action", "fly");
-        return decision.toString();
+        return decision;
     }
 
-    public static String turnRight(char currentDir) {
+    public static JSONObject turnRight(char currentDir) {
         int currentIndex = -1;
         for (int i = 0; i < directions.length; i++) {
             if (directions[i] == currentDir) {
@@ -32,12 +32,11 @@ public class Actions {
 
         return new JSONObject()
                 .put("action", "heading")
-                .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])))
-                .toString();
+                .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])));
 
     }
 
-    public static String turnLeft(char currentDir) {
+    public static JSONObject turnLeft(char currentDir) {
         int currentIndex = getDirectionIndex(currentDir);
         int newIndex = currentIndex - 1;
         if (newIndex < 0) {
@@ -46,11 +45,10 @@ public class Actions {
 
         return new JSONObject()
                 .put("action", "heading")
-                .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])))
-                .toString();
+                .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])));
     }
 
-    public static String echoLeft(char currentDir) {
+    public static JSONObject echoLeft(char currentDir) {
         int currentIndex = getDirectionIndex(currentDir);
         int newIndex = currentIndex - 1;
         if (newIndex < 0) {
@@ -59,37 +57,32 @@ public class Actions {
 
         return new JSONObject()
                 .put("action", "echo")
-                .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])))
-                .toString();
+                .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])));
     }
 
-    public static String echoRight(char currentDir) {
+    public static JSONObject echoRight(char currentDir) {
         int currentIndex = getDirectionIndex(currentDir);
         int newIndex = (currentIndex + 1) % directions.length;
 
         return new JSONObject()
                 .put("action", "echo")
-                .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])))
-                .toString();
+                .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])));
     }
 
-    public static String echoForward(char currentDir) {
+    public static JSONObject echoForward(char currentDir) {
         return new JSONObject()
                 .put("action", "echo")
-                .put("parameters", new JSONObject().put("direction", String.valueOf(currentDir)))
-                .toString();
+                .put("parameters", new JSONObject().put("direction", String.valueOf(currentDir)));
     }
 
-    public static String scan() {
+    public static JSONObject scan() {
         return new JSONObject()
-                .put("action", "scan")
-                .toString();
+                .put("action", "scan");
     }
 
-    public static String stop() {
+    public static JSONObject stop() {
         return new JSONObject()
-                .put("action", "stop")
-                .toString();
+                .put("action", "stop");
     }
 
 }

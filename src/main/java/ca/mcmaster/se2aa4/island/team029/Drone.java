@@ -30,7 +30,7 @@ public class Drone {
         return this.yCoord;
     }
 
-    public char getHeading(){
+    public char getDirection(){
         return this.direction;
     }
 
