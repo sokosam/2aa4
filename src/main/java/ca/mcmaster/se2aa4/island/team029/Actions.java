@@ -14,7 +14,9 @@ public class Actions {
         return -1;
     }
 
-    public static JSONObject flyForward() {
+    public static JSONObject flyForward(Drone drone) {
+        DroneOnAction.onFlyForward(drone);
+
         JSONObject decision = new JSONObject();
         decision.put("action", "fly");
         return decision;
@@ -30,6 +32,7 @@ public class Actions {
             }
         }
         int newIndex = (currentIndex + 1) % directions.length;
+        DroneOnAction.onTurnRight(drone);
         drone.setDirection(Direction.valueOf(String.valueOf(directions[newIndex])));
 
         return new JSONObject()
@@ -44,6 +47,7 @@ public class Actions {
         if (newIndex < 0) {
             newIndex = directions.length - 1;
         }
+        DroneOnAction.onTurnLeft(drone);
         drone.setDirection(Direction.valueOf(String.valueOf(directions[newIndex])));
 
         return new JSONObject()

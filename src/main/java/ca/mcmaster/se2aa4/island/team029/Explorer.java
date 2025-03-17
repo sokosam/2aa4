@@ -33,6 +33,9 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String takeDecision() {
+        logger.info("Current Drone x pos: {}", drone.getxCoord());
+        logger.info("Current Drone y pos: {}", drone.getyCoord());
+        logger.info("Current direction: {}", drone.getDirection());
         JSONObject decision = decisionMaker.makeDecision();
         logger.info("** Decision: {}", decision.toString());
         return decision.toString();
@@ -40,6 +43,8 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public void acknowledgeResults(String s) {
+        logger.info("New Drone x pos: {}", drone.getxCoord());
+        logger.info("New Drone y pos: {}", drone.getyCoord());
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
         logger.info("** Response received:\n" + response.toString(2));
 

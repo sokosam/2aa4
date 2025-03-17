@@ -15,22 +15,18 @@ public class DecisionMaker {
     }
 
     public JSONObject makeDecision() { // Wont highlight if drone goes outta bounds or other error
-
-        if (prevResult != null && !prevResult.isEmpty()
-                && !prevResult.getJSONArray("biomes").getString(0).equals("OCEAN")) {
-            return Actions.stop();
-        }
-
-        if (steps % 3 == 1) {
-            this.steps += 1;
-            return Actions.turnRight(drone);
-        }
-        if (steps % 3 == 2) {
-            this.steps += 1;
-            return Actions.turnLeft(drone);
-        } else {
-            this.steps += 1;
+        if (this.steps == 0) {
+            this.steps = 1;
             return Actions.scan();
+        } else if (this.steps == 1) {
+            this.steps = 2;
+            return Actions.turnRight(drone);
+        } else if (this.steps == 2) {
+            this.steps = 3;
+            return Actions.scan();
+        } else {
+            this.steps = 0;
+            return Actions.stop();
         }
 
     }
