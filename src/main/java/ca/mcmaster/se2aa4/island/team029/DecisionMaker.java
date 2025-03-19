@@ -2,7 +2,7 @@ package ca.mcmaster.se2aa4.island.team029;
 
 import org.json.JSONObject;
 
-public class DecisionMaker {
+public class DecisionMaker extends Algorithm {
 
     private final Drone drone;
     private JSONObject prevResult; // stores the previous result like a FSM
@@ -15,18 +15,12 @@ public class DecisionMaker {
     }
 
     public JSONObject makeDecision() { // Wont highlight if drone goes outta bounds or other error
-        if (this.steps == 0) {
-            this.steps = 1;
-            return Actions.scan();
-        } else if (this.steps == 1) {
-            this.steps = 2;
-            return Actions.turnRight(drone);
-        } else if (this.steps == 2) {
-            this.steps = 3;
-            return Actions.scan();
+        if (this.steps % 2 == 0) {
+            this.steps++;
+            return Actions.echoForward(this.drone);
         } else {
-            this.steps = 0;
-            return Actions.stop();
+            this.steps++;
+            return Actions.flyForward(this.drone);
         }
 
     }

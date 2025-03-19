@@ -76,10 +76,10 @@ public class Actions {
                 .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])));
     }
 
-    public static JSONObject echoForward(char currentDir) {
+    public static JSONObject echoForward(Drone drone) {
         return new JSONObject()
                 .put("action", "echo")
-                .put("parameters", new JSONObject().put("direction", String.valueOf(currentDir)));
+                .put("parameters", new JSONObject().put("direction", String.valueOf(drone.getDirection())));
     }
 
     public static JSONObject scan() {

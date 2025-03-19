@@ -61,7 +61,7 @@ public class DroneOnAction {
                 drone.updateY(-1);
                 break;
             case E:
-                drone.updateY(1);
+                drone.updateX(1);
                 break;
             case S:
                 drone.updateX(+1);
