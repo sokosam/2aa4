@@ -10,18 +10,22 @@ public class DroneOnAction {
             case N:
                 drone.updateY(-1);
                 drone.updateX(1);
+                drone.setDirection(Direction.E);
                 break;
             case E:
                 drone.updateY(1);
                 drone.updateX(1);
+                drone.setDirection(Direction.S);
                 break;
             case S:
                 drone.updateY(1);
                 drone.updateX(-1);
+                drone.setDirection(Direction.W);
                 break;
             case W:
                 drone.updateY(-1);
                 drone.updateX(-1);
+                drone.setDirection(Direction.N);
                 break;
             default:
                 // ...default logic...
@@ -35,18 +39,22 @@ public class DroneOnAction {
             case N:
                 drone.updateY(-1);
                 drone.updateX(-1);
+                drone.setDirection(Direction.W);
                 break;
             case E:
                 drone.updateY(-1);
                 drone.updateX(1);
+                drone.setDirection(Direction.N);
                 break;
             case S:
                 drone.updateY(1);
                 drone.updateX(1);
+                drone.setDirection(Direction.E);
                 break;
             case W:
                 drone.updateY(1);
                 drone.updateX(-1);
+                drone.setDirection(Direction.S);
                 break;
             default:
                 // ...default logic...
@@ -64,10 +72,10 @@ public class DroneOnAction {
                 drone.updateX(1);
                 break;
             case S:
-                drone.updateX(+1);
+                drone.updateY(+1);
                 break;
             case W:
-                drone.updateY(-1);
+                drone.updateX(-1);
                 break;
             default:
                 // ...default logic...

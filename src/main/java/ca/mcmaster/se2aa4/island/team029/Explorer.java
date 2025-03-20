@@ -50,6 +50,7 @@ public class Explorer implements IExplorerRaid {
 
         // Decrement drone's battery life
         int cost = response.getInt("cost");
+        drone.drainBattery(cost);
 
         logger.info("The cost of the action was {}", cost);
         String status = response.getString("status");

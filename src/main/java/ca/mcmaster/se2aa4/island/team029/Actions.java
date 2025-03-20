@@ -33,7 +33,7 @@ public class Actions {
         }
         int newIndex = (currentIndex + 1) % directions.length;
         DroneOnAction.onTurnRight(drone);
-        drone.setDirection(Direction.valueOf(String.valueOf(directions[newIndex])));
+        // drone.setDirection(Direction.valueOf(String.valueOf(directions[newIndex])));
 
         return new JSONObject()
                 .put("action", "heading")
@@ -48,15 +48,15 @@ public class Actions {
             newIndex = directions.length - 1;
         }
         DroneOnAction.onTurnLeft(drone);
-        drone.setDirection(Direction.valueOf(String.valueOf(directions[newIndex])));
+        // drone.setDirection(Direction.valueOf(String.valueOf(directions[newIndex])));
 
         return new JSONObject()
                 .put("action", "heading")
                 .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])));
     }
 
-    public static JSONObject echoLeft(char currentDir) {
-        int currentIndex = getDirectionIndex(currentDir);
+    public static JSONObject echoLeft(Drone drone) {
+        int currentIndex = getDirectionIndex(drone.getDirection().name().charAt(0));
         int newIndex = currentIndex - 1;
         if (newIndex < 0) {
             newIndex = directions.length - 1;
@@ -67,10 +67,16 @@ public class Actions {
                 .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])));
     }
 
-    public static JSONObject echoRight(char currentDir) {
-        int currentIndex = getDirectionIndex(currentDir);
+    public static JSONObject echoRight(Drone drone) {
+        int currentIndex = -1;
+        for (int i = 0; i < directions.length; i++) {
+            if (Direction.valueOf(String.valueOf(directions[i])) == Direction
+                    .valueOf(String.valueOf(drone.getDirection()))) {
+                currentIndex = i;
+                break;
+            }
+        }
         int newIndex = (currentIndex + 1) % directions.length;
-
         return new JSONObject()
                 .put("action", "echo")
                 .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])));
