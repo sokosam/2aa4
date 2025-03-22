@@ -14,7 +14,9 @@ public class Actions {
         return -1;
     }
 
-    public static JSONObject flyForward() {
+    public static JSONObject flyForward(Drone drone) {
+        DroneOnAction.onFlyForward(drone);
+
         JSONObject decision = new JSONObject();
         decision.put("action", "fly");
         return decision;
@@ -30,7 +32,8 @@ public class Actions {
             }
         }
         int newIndex = (currentIndex + 1) % directions.length;
-        drone.setDirection(Direction.valueOf(String.valueOf(directions[newIndex])));
+        DroneOnAction.onTurnRight(drone);
+        // drone.setDirection(Direction.valueOf(String.valueOf(directions[newIndex])));
 
         return new JSONObject()
                 .put("action", "heading")
@@ -44,15 +47,16 @@ public class Actions {
         if (newIndex < 0) {
             newIndex = directions.length - 1;
         }
-        drone.setDirection(Direction.valueOf(String.valueOf(directions[newIndex])));
+        DroneOnAction.onTurnLeft(drone);
+        // drone.setDirection(Direction.valueOf(String.valueOf(directions[newIndex])));
 
         return new JSONObject()
                 .put("action", "heading")
                 .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])));
     }
 
-    public static JSONObject echoLeft(char currentDir) {
-        int currentIndex = getDirectionIndex(currentDir);
+    public static JSONObject echoLeft(Drone drone) {
+        int currentIndex = getDirectionIndex(drone.getDirection().name().charAt(0));
         int newIndex = currentIndex - 1;
         if (newIndex < 0) {
             newIndex = directions.length - 1;
@@ -63,19 +67,25 @@ public class Actions {
                 .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])));
     }
 
-    public static JSONObject echoRight(char currentDir) {
-        int currentIndex = getDirectionIndex(currentDir);
+    public static JSONObject echoRight(Drone drone) {
+        int currentIndex = -1;
+        for (int i = 0; i < directions.length; i++) {
+            if (Direction.valueOf(String.valueOf(directions[i])) == Direction
+                    .valueOf(String.valueOf(drone.getDirection()))) {
+                currentIndex = i;
+                break;
+            }
+        }
         int newIndex = (currentIndex + 1) % directions.length;
-
         return new JSONObject()
                 .put("action", "echo")
                 .put("parameters", new JSONObject().put("direction", String.valueOf(directions[newIndex])));
     }
 
-    public static JSONObject echoForward(char currentDir) {
+    public static JSONObject echoForward(Drone drone) {
         return new JSONObject()
                 .put("action", "echo")
-                .put("parameters", new JSONObject().put("direction", String.valueOf(currentDir)));
+                .put("parameters", new JSONObject().put("direction", String.valueOf(drone.getDirection())));
     }
 
     public static JSONObject scan() {
