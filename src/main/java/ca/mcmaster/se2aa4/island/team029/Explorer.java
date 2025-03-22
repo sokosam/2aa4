@@ -57,6 +57,19 @@ public class Explorer implements IExplorerRaid {
         logger.info("The status of the drone is {}", status);
         JSONObject extraInfo = response.getJSONObject("extras");
 
+        int X1 = decisionMaker.map.getX1();
+        int X2 = decisionMaker.map.getX2();
+        int Y1 = decisionMaker.map.getY1();
+        int Y2 = decisionMaker.map.getY2();
+
+        logger.info("X1 = {}", X1);
+        logger.info("X2 = {}", X2);
+        logger.info("Y1 = {}", Y1);
+        logger.info("Y2 = {}", Y2);
+
+        int battery = drone.getBatteryLevel();
+        logger.info("Battery level is {}", battery);
+
         // Set result for decisionMaker
         decisionMaker.setResult(extraInfo);
         logger.info("prevResult = " + extraInfo.toString(2));
