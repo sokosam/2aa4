@@ -23,7 +23,7 @@ public class VerticalScan {
         } else {
             if (prev != null && !prev.isEmpty()) {
                 if (prev.has("found") && prev.get("found").equals("OUT_OF_RANGE") && prev.getInt("range") <= 4) {
-                    state.setState(states.END);
+                    state.setState(states.UPSHIFT);
                 }
             }
             return Actions.flyForward(drone);

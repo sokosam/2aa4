@@ -62,10 +62,12 @@ public class Explorer implements IExplorerRaid {
         int Y1 = decisionMaker.map.getY1();
         int Y2 = decisionMaker.map.getY2();
 
-        logger.info("X1 = {}", X1);
-        logger.info("X2 = {}", X2);
-        logger.info("Y1 = {}", Y1);
-        logger.info("Y2 = {}", Y2);
+        ScanState state = decisionMaker.state;
+        logger.info("Current state is {}", state.getState().name());
+        // logger.info("X1 = {}", X1);
+        // logger.info("X2 = {}", X2);
+        // logger.info("Y1 = {}", Y1);
+        // logger.info("Y2 = {}", Y2);
 
         int battery = drone.getBatteryLevel();
         logger.info("Battery level is {}", battery);
