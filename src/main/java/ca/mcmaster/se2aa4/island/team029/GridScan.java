@@ -1,5 +1,6 @@
 package ca.mcmaster.se2aa4.island.team029;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class GridScan extends Algorithm {
@@ -18,13 +19,35 @@ public class GridScan extends Algorithm {
         this.prevResult = null;
     }
 
+    @Override
     public JSONObject makeDecision() {
         if (this.drone.getBatteryLevel() < 30) {
             return Actions.stop();
         }
 
+        // Checks if sites/creek is found
+
+        if (prevResult != null) {
+
+            if (prevResult.has("creeks")) {
+                JSONArray creeks = prevResult.getJSONArray("creeks");
+                for (int i = 0; i < creeks.length(); i++) {
+                    map.addCreek(creeks.getString(i), drone.getxCoord(), drone.getyCoord());
+                }
+            }
+
+            if (prevResult.has("sites")) {
+                JSONArray sites = prevResult.getJSONArray("sites");
+                for (int i = 0; i < sites.length(); i++) {
+                    map.addEmergencySite(sites.getString(i), drone.getxCoord(), drone.getyCoord());
+                }
+            }
+
+        }
+
         JSONObject decision = null;
         ScanState.states currentState = this.state.getState();
+
         switch (currentState) {
             case HORIZONTAL:
                 decision = HorizontalScan.stateControl(this.map, this.drone, this.prevResult, this.state, this.steps);
@@ -204,60 +227,7 @@ public class GridScan extends Algorithm {
         }
         this.steps++;
         return decision;
-        // if (this.srcurr != UndoPrevRight.END) {
-        // if (this.map.getY1() == 0) {
-        // return subtleRight(ForceTurn.RIGHT);
-        // }
-        // return subtleRight(ForceTurn.NONE);
-        // }
-
-        // if (this.findMapSize == FindMapSize.X1) {
-        // if (this.steps % 2 == 0) {
-        // this.steps++;
-        // return Actions.echoRight(this.drone);
-        // } else {
-        // this.steps++;
-        // if (prevResult != null && !prevResult.isEmpty() && prevResult.has("found")
-        // && "GROUND".equals(prevResult.getString("found"))) {
-        // this.findMapSize = FindMapSize.Y1;
-        // this.map.setX1(this.drone.getxCoord());
-        // this.srcurr = UndoPrevRight.RIGHT1;
-        // return subtleRight(ForceTurn.RIGHT);
-        // } else {
-        // return Actions.flyForward(this.drone);
-        // }
-        // }
-        // }
-
-        // return null;
     }
-
-    // private JSONObject subtleRight(ForceTurn turn) {
-    // UndoPrevRight current = this.srcurr;
-    // switch (current) {
-    // case RIGHT1:
-    // this.srcurr = UndoPrevRight.FORWARD1;
-    // return Actions.turnRight(this.drone);
-    // case FORWARD1:
-    // this.srcurr = UndoPrevRight.RIGHT2;
-    // return Actions.flyForward(this.drone);
-    // case RIGHT2:
-    // this.srcurr = UndoPrevRight.FORWARD2;
-    // return Actions.turnRight(this.drone);
-    // case FORWARD2:
-    // this.srcurr = UndoPrevRight.RIGHT3;
-    // return Actions.flyForward(this.drone);
-    // case RIGHT3:
-    // this.srcurr = UndoPrevRight.RIGHT4;
-    // return Actions.turnRight(this.drone);
-    // case RIGHT4:
-    // this.srcurr = UndoPrevRight.END;
-    // this.turn = turn;
-    // return Actions.turnRight(this.drone);
-    // default:
-    // return null;
-    // }
-    // }
 
     public void setResult(JSONObject result) {
         this.prevResult = result;

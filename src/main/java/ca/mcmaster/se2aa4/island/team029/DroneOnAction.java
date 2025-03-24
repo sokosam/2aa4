@@ -6,6 +6,9 @@ public class DroneOnAction {
         // Example variable for switch
         Direction heading = drone.getDirection();
 
+        // Switch should be fine here since it is illogical to extend switch cases for
+        // more directions
+
         switch (heading) {
             case N:
                 drone.updateY(-1);

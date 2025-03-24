@@ -1,7 +1,7 @@
 package ca.mcmaster.se2aa4.island.team029;
 
 import java.util.ArrayList;
-import ca.mcmaster.se2aa4.island.team029.Creeks;
+import ca.mcmaster.se2aa4.island.team029.Creek;
 import ca.mcmaster.se2aa4.island.team029.EmergencySite;
 
 public class Map {
@@ -10,7 +10,7 @@ public class Map {
     private int y1;
     private int x2;
     private int y2;
-    private ArrayList<Creeks> creeks;
+    private ArrayList<Creek> creeks;
     private ArrayList<EmergencySite> emergencySites;
 
     public Map() {
@@ -18,7 +18,7 @@ public class Map {
         this.y1 = 0;
         this.x2 = 0;
         this.y2 = 0;
-        this.creeks = new ArrayList<Creeks>();
+        this.creeks = new ArrayList<Creek>();
         this.emergencySites = new ArrayList<EmergencySite>();
     }
 
@@ -38,13 +38,13 @@ public class Map {
         this.y2 = y2;
     }
 
-    public void addCreek(int x, int y) {
-        Creeks creek = new Creeks(x, y);
+    public void addCreek(String id, int x, int y) {
+        Creek creek = new Creek(id, x, y);
         this.creeks.add(creek);
     }
 
-    public void addEmergencySite(int x, int y) {
-        EmergencySite emergencySite = new EmergencySite(x, y);
+    public void addEmergencySite(String id, int x, int y) {
+        EmergencySite emergencySite = new EmergencySite(id, x, y);
         this.emergencySites.add(emergencySite);
     }
 
@@ -64,7 +64,7 @@ public class Map {
         return this.y2;
     }
 
-    public ArrayList<Creeks> getCreeks() {
+    public ArrayList<Creek> getCreeks() {
         return this.creeks;
     }
 

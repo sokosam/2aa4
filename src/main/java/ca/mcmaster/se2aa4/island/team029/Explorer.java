@@ -33,9 +33,9 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String takeDecision() {
-        logger.info("Current Drone x pos: {}", drone.getxCoord());
-        logger.info("Current Drone y pos: {}", drone.getyCoord());
-        logger.info("Current direction: {}", drone.getDirection());
+        // logger.info("Current Drone x pos: {}", drone.getxCoord());
+        // logger.info("Current Drone y pos: {}", drone.getyCoord());
+        // logger.info("Current direction: {}", drone.getDirection());
         JSONObject decision = decisionMaker.makeDecision();
         logger.info("** Decision: {}", decision.toString());
         return decision.toString();
@@ -43,8 +43,8 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public void acknowledgeResults(String s) {
-        logger.info("New Drone x pos: {}", drone.getxCoord());
-        logger.info("New Drone y pos: {}", drone.getyCoord());
+        // logger.info("New Drone x pos: {}", drone.getxCoord());
+        // logger.info("New Drone y pos: {}", drone.getyCoord());
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
         logger.info("** Response received:\n" + response.toString(2));
 
@@ -57,17 +57,8 @@ public class Explorer implements IExplorerRaid {
         logger.info("The status of the drone is {}", status);
         JSONObject extraInfo = response.getJSONObject("extras");
 
-        int X1 = decisionMaker.map.getX1();
-        int X2 = decisionMaker.map.getX2();
-        int Y1 = decisionMaker.map.getY1();
-        int Y2 = decisionMaker.map.getY2();
-
-        ScanState state = decisionMaker.state;
-        logger.info("Current state is {}", state.getState().name());
-        // logger.info("X1 = {}", X1);
-        // logger.info("X2 = {}", X2);
-        // logger.info("Y1 = {}", Y1);
-        // logger.info("Y2 = {}", Y2);
+        logger.info("Creeks identified {}", decisionMaker.map.getCreeks().size());
+        logger.info("Sites identified {}", decisionMaker.map.getEmergencySites().size());
 
         int battery = drone.getBatteryLevel();
         logger.info("Battery level is {}", battery);

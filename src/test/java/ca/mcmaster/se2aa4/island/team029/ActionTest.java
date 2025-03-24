@@ -17,7 +17,7 @@ public class ActionTest {
 
     @Test
     public void testFlyForwards() {
-        JSONObject action = Actions.flyForward();
+        JSONObject action = Actions.flyForward(drone);
         assertTrue(action.has("action"));
         assertEquals("fly", action.getString("action"));
     }
@@ -140,7 +140,7 @@ public class ActionTest {
 
     @Test
     public void testEchoForwardsEast() {
-        JSONObject action = Actions.echoForward('E');
+        JSONObject action = Actions.echoForward(drone);
         assertTrue(action.has("action"));
         assertEquals("echo", action.getString("action"));
         assertTrue(action.has("parameters"));
@@ -152,7 +152,8 @@ public class ActionTest {
 
     @Test
     public void testEchoForwardsSouth() {
-        JSONObject action = Actions.echoForward('S');
+        drone.setDirection(Direction.S);
+        JSONObject action = Actions.echoForward(drone);
         assertTrue(action.has("action"));
         assertEquals("echo", action.getString("action"));
         assertTrue(action.has("parameters"));
@@ -164,7 +165,8 @@ public class ActionTest {
 
     @Test
     public void testEchoForwardsWest() {
-        JSONObject action = Actions.echoForward('W');
+        drone.setDirection(Direction.W);
+        JSONObject action = Actions.echoForward(drone);
         assertTrue(action.has("action"));
         assertEquals("echo", action.getString("action"));
         assertTrue(action.has("parameters"));
@@ -176,7 +178,8 @@ public class ActionTest {
 
     @Test
     public void testEchoForwardsNorth() {
-        JSONObject action = Actions.echoForward('N');
+        drone.setDirection(Direction.N);
+        JSONObject action = Actions.echoForward(drone);
         assertTrue(action.has("action"));
         assertEquals("echo", action.getString("action"));
         assertTrue(action.has("parameters"));
@@ -188,7 +191,7 @@ public class ActionTest {
 
     @Test
     public void testEchoRightEast() {
-        JSONObject action = Actions.echoRight('E');
+        JSONObject action = Actions.echoRight(drone);
         assertTrue(action.has("action"));
         assertEquals("echo", action.getString("action"));
         assertTrue(action.has("parameters"));
@@ -200,7 +203,8 @@ public class ActionTest {
 
     @Test
     public void testEchoRightSouth() {
-        JSONObject action = Actions.echoRight('S');
+        drone.setDirection(Direction.S);
+        JSONObject action = Actions.echoRight(drone);
         assertTrue(action.has("action"));
         assertEquals("echo", action.getString("action"));
         assertTrue(action.has("parameters"));
@@ -212,7 +216,8 @@ public class ActionTest {
 
     @Test
     public void testEchoRightWest() {
-        JSONObject action = Actions.echoRight('W');
+        drone.setDirection(Direction.W);
+        JSONObject action = Actions.echoRight(drone);
         assertTrue(action.has("action"));
         assertEquals("echo", action.getString("action"));
         assertTrue(action.has("parameters"));
@@ -224,7 +229,8 @@ public class ActionTest {
 
     @Test
     public void testEchoRightNorth() {
-        JSONObject action = Actions.echoRight('N');
+        drone.setDirection(Direction.N);
+        JSONObject action = Actions.echoRight(drone);
         assertTrue(action.has("action"));
         assertEquals("echo", action.getString("action"));
         assertTrue(action.has("parameters"));
@@ -236,7 +242,7 @@ public class ActionTest {
 
     @Test
     public void testEchoLeftEast() {
-        JSONObject action = Actions.echoLeft('E');
+        JSONObject action = Actions.echoLeft(drone);
         assertTrue(action.has("action"));
         assertEquals("echo", action.getString("action"));
         assertTrue(action.has("parameters"));
@@ -248,7 +254,8 @@ public class ActionTest {
 
     @Test
     public void testEchoLeftSouth() {
-        JSONObject action = Actions.echoLeft('S');
+        drone.setDirection(Direction.S);
+        JSONObject action = Actions.echoLeft(drone);
         assertTrue(action.has("action"));
         assertEquals("echo", action.getString("action"));
         assertTrue(action.has("parameters"));
@@ -260,7 +267,8 @@ public class ActionTest {
 
     @Test
     public void testEchoLeftWest() {
-        JSONObject action = Actions.echoLeft('W');
+        drone.setDirection(Direction.W);
+        JSONObject action = Actions.echoLeft(drone);
         assertTrue(action.has("action"));
         assertEquals("echo", action.getString("action"));
         assertTrue(action.has("parameters"));
@@ -272,7 +280,8 @@ public class ActionTest {
 
     @Test
     public void testEchoLeftNorth() {
-        JSONObject action = Actions.echoLeft('N');
+        drone.setDirection(Direction.N);
+        JSONObject action = Actions.echoLeft(drone);
         assertTrue(action.has("action"));
         assertEquals("echo", action.getString("action"));
         assertTrue(action.has("parameters"));
