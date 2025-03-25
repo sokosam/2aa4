@@ -8,8 +8,8 @@ public class GridScan extends Algorithm {
     private final Drone drone;
     private JSONObject prevResult;
     private int steps;
-    public Map map;
-    public ScanState state;
+    private Map map;
+    private ScanState state;
 
     public GridScan(Drone drone) {
         this.drone = drone;
@@ -233,6 +233,10 @@ public class GridScan extends Algorithm {
 
     public void setResult(JSONObject result) {
         this.prevResult = result;
+    }
+
+    public Map getMap() {
+        return this.map;
     }
 
 }

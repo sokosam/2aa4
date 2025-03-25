@@ -62,9 +62,6 @@ public class Explorer implements IExplorerRaid {
         logger.info("The status of the drone is {}", status);
         JSONObject extraInfo = response.getJSONObject("extras");
 
-        logger.info("Creeks identified {}", decisionMaker.map.getCreeks().size());
-        logger.info("Sites identified {}", decisionMaker.map.getEmergencySites().size());
-
         int battery = drone.getBatteryLevel();
         logger.info("Battery level is {}", battery);
 
@@ -80,8 +77,8 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String deliverFinalReport() {
-        ArrayList<Creek> creeks = decisionMaker.map.getCreeks();
-        ArrayList<EmergencySite> sites = decisionMaker.map.getEmergencySites();
+        ArrayList<Creek> creeks = decisionMaker.getMap().getCreeks();
+        ArrayList<EmergencySite> sites = decisionMaker.getMap().getEmergencySites();
 
         if (sites.size() == 0) {
             return "no emergency site found";
