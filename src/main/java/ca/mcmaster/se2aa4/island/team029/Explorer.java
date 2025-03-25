@@ -1,6 +1,7 @@
 package ca.mcmaster.se2aa4.island.team029;
 
 import java.io.StringReader;
+import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,6 +15,7 @@ public class Explorer implements IExplorerRaid {
     private final Logger logger = LogManager.getLogger();
     private GridScan decisionMaker;
     private Drone drone;
+    private boolean stop = false;
 
     @Override
     public void initialize(String s) {
@@ -37,6 +39,9 @@ public class Explorer implements IExplorerRaid {
         // logger.info("Current Drone y pos: {}", drone.getyCoord());
         // logger.info("Current direction: {}", drone.getDirection());
         JSONObject decision = decisionMaker.makeDecision();
+        if (decision.getString("action").equals("stop")) {
+            stop = true;
+        }
         logger.info("** Decision: {}", decision.toString());
         return decision.toString();
     }
@@ -67,11 +72,44 @@ public class Explorer implements IExplorerRaid {
         decisionMaker.setResult(extraInfo);
         logger.info("prevResult = " + extraInfo.toString(2));
         logger.info("Additional information received: {}", extraInfo);
+
+        if (stop) {
+            logger.info(deliverFinalReport());
+        }
     }
 
     @Override
     public String deliverFinalReport() {
-        return "no creek found";
+        ArrayList<Creek> creeks = decisionMaker.map.getCreeks();
+        ArrayList<EmergencySite> sites = decisionMaker.map.getEmergencySites();
+
+        if (sites.size() == 0) {
+            return "no emergency site found";
+        }
+
+        if (creeks.size() == 0) {
+            return "no creek found";
+        }
+
+        EmergencySite closestSite = sites.get(0);
+        Creek closestCreek = creeks.get(0);
+        int siteX = closestSite.getX();
+        int siteY = closestSite.getY();
+        float best_distance = -1;
+
+        for (Creek creek : creeks) {
+            int x = creek.getX();
+            int y = creek.getY();
+
+            float distance = (float) Math.sqrt(Math.pow((siteX - x), 2) + Math.pow((siteY - y), 2));
+            if (distance < best_distance || best_distance == -1) {
+                closestCreek = creek;
+                best_distance = distance;
+            }
+
+        }
+
+        return "closest creek: " + closestCreek.getId() + " emergency site: " + closestSite.getId();
     }
 
 }

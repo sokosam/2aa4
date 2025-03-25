@@ -48,6 +48,8 @@ public class GridScan extends Algorithm {
         JSONObject decision = null;
         ScanState.states currentState = this.state.getState();
 
+        // Switch statement for State Machine Control, to see the explaination of each
+        // state, view ScanState.java
         switch (currentState) {
             case HORIZONTAL:
                 decision = HorizontalScan.stateControl(this.map, this.drone, this.prevResult, this.state, this.steps);
